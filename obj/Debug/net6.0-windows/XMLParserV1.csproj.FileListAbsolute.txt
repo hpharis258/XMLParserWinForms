@@ -15,3 +15,4 @@ C:\Users\Haroldas\source\repos\XMLParserV1\obj\Debug\net6.0-windows\refint\XMLPa
 C:\Users\Haroldas\source\repos\XMLParserV1\obj\Debug\net6.0-windows\XMLParserV1.pdb
 C:\Users\Haroldas\source\repos\XMLParserV1\obj\Debug\net6.0-windows\XMLParserV1.genruntimeconfig.cache
 C:\Users\Haroldas\source\repos\XMLParserV1\obj\Debug\net6.0-windows\ref\XMLParserV1.dll
+C:\Users\Haroldas\source\repos\XMLParserV1\bin\Debug\net6.0-windows\mps.csv
