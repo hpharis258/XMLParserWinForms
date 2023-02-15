@@ -13,9 +13,11 @@ namespace XMLParserV1
     public class XMLParserFromURL : IFileReader<MemberOfParliament>
     {
         public string URL { get; set; }
-        public XMLParserFromURL(string URL)
+        public int GetRecordCount { get; set; }
+        public XMLParserFromURL(string URL, int getRecordCount = 0)
         {
             this.URL = URL;
+            GetRecordCount = getRecordCount;
         }
         // Validate Schema
         public string ValidateSchema()
@@ -49,9 +51,10 @@ namespace XMLParserV1
                 List<int> payments = new List<int>();
                 List<string> paymentDates = new List<string>();
                 List<string> donnorName = new List<string>();
-
+                
                 while (reader.Read())
                 {
+                    
                     if(reader.NodeType == XmlNodeType.Element && reader.Name == "regmem")
                     {
                         // Extract Member name and Id
@@ -116,6 +119,11 @@ namespace XMLParserV1
                         donnorName.Clear();
                         DateRecordAdded = "";
 
+                    }
+                    // Check Count of Records
+                    if(GetRecordCount != 0 && members.Count == GetRecordCount)
+                    {
+                        return members;
                     }
                 }
                 return members;
