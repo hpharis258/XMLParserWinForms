@@ -10,6 +10,7 @@ using System.Xml;
 
 namespace XMLParserV1
 {
+
     public class XMLParserFromURL : IFileReader<MemberOfParliament>
     {
         public string URL { get; set; }
@@ -24,6 +25,7 @@ namespace XMLParserV1
         {
             return "Add Code that validates Schema";
         }
+        // Helper Method
         public string RemoveNonNumberic(string input)
         {
             string clean = Regex.Replace(input, "[^0-9]", "");
@@ -69,47 +71,50 @@ namespace XMLParserV1
                     // Extract Money Received
                     if(reader.NodeType == XmlNodeType.Element && reader.Name == "item")
                     {
-                        string Item = reader.ReadInnerXml();
-                        if(Item.Contains("Name of donor:"))
+                        while(reader.Name == "item" || reader.Name == "category" || reader.Name == "record")
                         {
-                            int indexOf = Item.IndexOf("donor:");
-                            int indexOfBR = Item.IndexOf("<br");
-                            int diff = indexOfBR - indexOf;
-                            string NameOfDonnor = Item.Substring(indexOf, diff);
-                            string removeDonorPretext = NameOfDonnor.Replace("donor: ", "");
-                            //Console.WriteLine(NameOfDonnor);
-                            donnorName.Add(removeDonorPretext);
-                        }
-                        if (Item.Contains("received") && Item.Contains("£"))
-                        {
-                            int indexOfPound = Item.IndexOf("£");
-                            int indexOfVat = Item.IndexOf("VAT");
-
-                            string sub = Item.Substring(indexOfPound, 10);
-                            string clean = RemoveNonNumberic(sub);
-                            if (clean != null || clean != "")
+                            string Item = reader.ReadInnerXml();
+                            if (Item.Contains("Name of donor:"))
                             {
-                                long paymentNum = Int64.Parse(clean);
-                                int converted = (int)paymentNum;
-                                payments.Add(converted);
+                                int indexOf = Item.IndexOf("donor:");
+                                int indexOfBR = Item.IndexOf("<br");
+                                int diff = indexOfBR - indexOf;
+                                string NameOfDonnor = Item.Substring(indexOf, diff);
+                                string removeDonorPretext = NameOfDonnor.Replace("donor: ", "");
+                                //Console.WriteLine(NameOfDonnor);
+                                donnorName.Add(removeDonorPretext);
                             }
-                            
+                            if (Item.Contains("received") && Item.Contains("£"))
+                            {
+                                int indexOfPound = Item.IndexOf("£");
+                                int indexOfVat = Item.IndexOf("VAT");
 
+                                string sub = Item.Substring(indexOfPound, 10);
+                                string clean = RemoveNonNumberic(sub);
+                                if (clean != null || clean != "")
+                                {
+                                    long paymentNum = Int64.Parse(clean);
+                                    int converted = (int)paymentNum;
+                                    payments.Add(converted);
+                                }
+
+
+                            }
+                            if (Item.Contains("Date received"))
+                            {
+                                int indexOfFirst = Item.IndexOf("received:");
+                                int idexOfLast = Item.IndexOf("</br>");
+                                string Date = Item.Substring(indexOfFirst, 20);
+                                paymentDates.Add(Date);
+
+                            }
                         }
-                        if(Item.Contains("Date received"))
-                        {
-                            int indexOfFirst = Item.IndexOf("received:");
-                            int idexOfLast = Item.IndexOf("</br>");
-                            string Date = Item.Substring(indexOfFirst, 20);
-                            paymentDates.Add(Date);
-                            
-                        }
+                        
                     }
-                    if (TempName != "" && tempId != "")
+                    if (TempName != "" && tempId != "" && donnorName.Count > 0) 
                     {
                         // Create Member and add To List
                         MemberOfParliament newMember = new MemberOfParliament(TempName, tempId, paymentDates, payments, donnorName);
-                        newMember.DateRecordAdded = DateRecordAdded;
                         members.Add(newMember);
                         // Reset Temp Variables
                         TempName = "";
@@ -131,7 +136,7 @@ namespace XMLParserV1
             }
             
         }
-
+        //s
         public List<MemberOfParliament> GetAllData()
         {
             return ReadMPData();

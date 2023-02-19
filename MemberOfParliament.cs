@@ -7,17 +7,14 @@ using System.Threading.Tasks;
 
 namespace XMLParserV1
 {
-    public class MemberOfParliament : IPerson, IFinancialData
+    public class MemberOfParliament : IPerson, IFinancialData,IPoliticalData
     {
         // Person Details
         public string? Name { get; set; }
 
         public string? Id { get; set; }
         // Aditional
-
         public string FullLink { get; set; } = "https://www.theyworkforyou.com/mp/";
-        // First Donor
-        public string FirstDonor { get; set; }
         // Image 
         private string ImageURL = "https://www.theyworkforyou.com/people-images/mps/";
 
@@ -29,7 +26,8 @@ namespace XMLParserV1
         public List<int>? PaymentsReceived { get; set; }
         public List<string>? DonnorNames { get; set; }
         public int FullAmountReceived{ get; set; }
-        public string DateRecordAdded { get; set; }
+        public string Party { get; set; }
+        public string Constituency { get; set; }
 
         // Constructor
         public MemberOfParliament(string Name, string Id, List<string> PaymentDateReceived, List<int> PaymentsReceived, List<string> DonnorNames)
@@ -41,10 +39,6 @@ namespace XMLParserV1
             this.DonnorNames = DonnorNames;
             this.FullLink += Id;
             FullAmountReceived = CalculateFullAmmount(PaymentsReceived);
-            if (DonnorNames.Count > 0)
-            {
-                FirstDonor = DonnorNames[0];
-            }
             this.ImageURL += Id + ".jpg";
             System.Diagnostics.Debug.WriteLine(this.ImageURL);
             // Get Image
