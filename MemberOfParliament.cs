@@ -25,6 +25,8 @@ namespace XMLParserV1
         public List<string>? PaymentDateReceived { get; set; }
         public List<int>? PaymentsReceived { get; set; }
         public List<string>? DonnorNames { get; set; }
+        // Display String
+        public string DisplayDonnorNames { get; set; }
         public int FullAmountReceived{ get; set; }
         public string Party { get; set; }
         public string Constituency { get; set; }
@@ -37,6 +39,9 @@ namespace XMLParserV1
             this.PaymentDateReceived= PaymentDateReceived;
             this.PaymentsReceived = PaymentsReceived;
             this.DonnorNames = DonnorNames;
+            this.DisplayDonnorNames = string.Join(",", DonnorNames);
+            System.Diagnostics.Debug.WriteLine("Donor Names Added to MEM " + Name);
+            System.Diagnostics.Debug.WriteLine(DonnorNames.Count);
             this.FullLink += Id;
             FullAmountReceived = CalculateFullAmmount(PaymentsReceived);
             this.ImageURL += Id + ".jpg";

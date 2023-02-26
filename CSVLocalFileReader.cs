@@ -9,21 +9,24 @@ namespace XMLParserV1
 {
     public class CSVLocalFileReader : IFileReader<string>
     {
-        string filePath = "./mps.csv";
+        public string filePath { get; set; }
+        public int Counter { get; set; }
+
         List<string> files = new List<string>();
-        public List<string> ReadData(string path, int count = 0)
+        public List<string> GetAllData()
         {
-            int _localCounter = 0;
+           
             // If Count was set Read only set amount of records
-            if(count > 0) 
+            if (Counter > 0)
             {
+                int _localCounter = 0;
                 try
                 {
                     using (StreamReader reader = new StreamReader(filePath))
                     {
                         string line;
 
-                        while ((count + 1) != _localCounter)
+                        while ((_localCounter ) != Counter + 1)
                         {
                             line = reader.ReadLine();
                             files.Add(line);
@@ -63,13 +66,7 @@ namespace XMLParserV1
                 }
                 return files;
             }
-            
-         
-         }
-        // Interface
-        public List<string> GetAllData()
-        {
-            return ReadData(filePath);
+
         }
     }
 }

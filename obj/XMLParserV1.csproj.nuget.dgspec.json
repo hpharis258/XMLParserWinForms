@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Haroldas\\source\\repos\\XMLParserV1\\XMLParserV1.csproj": {}
+    "B:\\repos\\XMLParserV1\\XMLParserV1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Haroldas\\source\\repos\\XMLParserV1\\XMLParserV1.csproj": {
+    "B:\\repos\\XMLParserV1\\XMLParserV1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Haroldas\\source\\repos\\XMLParserV1\\XMLParserV1.csproj",
+        "projectUniqueName": "B:\\repos\\XMLParserV1\\XMLParserV1.csproj",
         "projectName": "XMLParserV1",
-        "projectPath": "C:\\Users\\Haroldas\\source\\repos\\XMLParserV1\\XMLParserV1.csproj",
+        "projectPath": "B:\\repos\\XMLParserV1\\XMLParserV1.csproj",
         "packagesPath": "C:\\Users\\Haroldas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Haroldas\\source\\repos\\XMLParserV1\\obj\\",
+        "outputPath": "B:\\repos\\XMLParserV1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
